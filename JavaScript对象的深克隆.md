@@ -25,46 +25,32 @@ console.log(obj2.name) //xiaoming
 ### JS对象的深克隆
 现在要写一个原生JS实现深克隆的函数，那我们先贴出代码，进行分析
 ```javascript
-function deepClone(Obj) {
-  var buf 
-  if(Obj instanceof Array) {
-      buf = []
-          var i = Obj.length
-          while(i--) {
-                buf[i] = deepClone(Obj[i]) //递归调用deepClone函数进行深克隆
-                    
-          }
-              return buf
-                
-                } else if(Obj instanceof Object) {
-                    buf = {}
-                    for(var key in Obj) {
-                          buf[key] = deepClone(Obj[key]) //递归调用deepClone函数进行深克隆
-                              
-                    }
-                        return buf
-                          
-                          } else {
-                              return Obj
-                                
-                          }
+function clone(Obj) {
+    var buf
+    if(Obj instanceof Array) {
+        buf = []
+        var i = Obj.length
+        while(i--) {
+            buf[i] = clone(Obj[i])
+        }
+        console.log(buf)
+    } else if(Obj instanceof Object) {
+        buf = {}
+        for(key in Obj) {
+            buf[key] = clone(Obj[key])
+        }
+        console.log(buf)
+    } else {
+        return Obj
+    }
+} 
 
+var testArray = [1, 2, 3]
+clone(testArray)
+var testObject = {
+    name: 'xiaoming',
+    age: '18'
 }
-
-var test1 = {
-  name: 'xiaoming',
-    age: 18
-
-}
-var result1 = deepClone(test1)
-console.log(test1, result1) //Object {name: "xiaoming", age: 18},Object {name: "xiaoming", age: 18}
-result1.age = 19
-console.log(test1, result1) //Object {name: "xiaoming", age: 18},Object {name: "xiaoming", age: 19}
-
-var test2 = [1, 3, 5, 7, 9]
-var result2 = deepClone(test2)
-console.log(test2, result2) //Array(5) [1, 3, 5, 7, 9],Array(5) [1, 3, 5, 7, 9]
-result2[0] = 0
-console.log(test2, result2) //Array(5) [1, 3, 5, 7, 9],Array(5) [0, 3, 5, 7, 9]
+clone(testObject)
 ```
 其中，身为一等公民函数，虽然也是对象，但通过值类型的复制即可实现深克隆。这样，一个实现深克隆的功能便出来了。
