@@ -39,35 +39,40 @@ xmlhttp.onreadystatechange = function() {
 ### 原生JS实现AJAX
 ```html
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Document</title>
-	<script>
-		function loadXMLDoc() {
-			var xmlhttp
-			if(window.XMLHttpRequest) {
-				xmlhttp = new XMLHttpRequest()
-			} else {
-				xmlhttp = new ActiveXObject('Mircosoft.XMLHTTP')
-			}
-			xmlhttp.onreadystatechange = function() {
-				if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-					document.getElementById('myDiv').innerHTML = xmlhttp.responseText
-				}
-			}
-			xmlhttp.open("GET", 'ajax_demo.txt', true)
-			xmlhttp.send()
+<meta charset="utf-8">
+<script>
+function loadXMLDoc()
+{
+	var xmlhttp;
+	if (window.XMLHttpRequest)
+	{
+		//  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{
+		// IE6, IE5 浏览器执行代码
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
 		}
-	</script>
+	}
+	xmlhttp.open("GET","/try/ajax/ajax_info.txt",true);
+	xmlhttp.send();
+}
+</script>
 </head>
 <body>
-	<div class="myDiv">
-		<h2>使用AJAX修改</h2>
-	</div>
-	<button type="button" onclick="loadXMLDoc()">修改内容</button>
+
+<div id="myDiv"><h2>使用 AJAX 修改该文本内容</h2></div>
+<button type="button" onclick="loadXMLDoc()">修改内容</button>
+
 </body>
 </html>
 ```
