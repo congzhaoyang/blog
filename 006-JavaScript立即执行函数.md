@@ -31,16 +31,29 @@ JS中，()跟在函数名之后表示调用该函数，如`print()`即表示调�
 ```
 
 ## IIEF的优势
-1.不必为函数命名，避免污染全局变量
-2.内部形成单独作用域,封装私有变量establishing private variables and accessors
-## 
+1.不必为函数命名，避免污染全局变量 
+avoid polluting global variables because of anonymous function and private variables and accessors
+
+2.内部形成单独作用域,封装私有变量 establishing private variables and accessors
+
+3.Evaluation context，preserving the inner function's execution context.
+
+## IIFE的进阶使用
+将IIFE当做函数调用并传参进去
+```javascript
+var a = 2
+
+(function IIFE (global) {
+  var a = 3
+  console.log(a) // 3
+  console.log(global.a) // window.a = 2
+})(window)
+```
 ```javascript
 (function($) {
-
+  // code
 })(jQuery)
 ```
-
-
 
 ## 参考文档
 * [Immediately-invoked function expression](https://en.wikipedia.org/wiki/Immediately-invoked_function_expression)
@@ -50,4 +63,4 @@ JS中，()跟在函数名之后表示调用该函数，如`print()`即表示调�
 * [JavaScript中的立即执行函数](https://juejin.im/post/59fc0a8c6fb9a04500026707)
 * [javascript立即执行某个函数：插件中function(){}()再思考](http://www.tangshuang.net/2020.html)
 * [you don‘t know JS](https://github.com/getify/You-Dont-Know-JS/blob/1ed-zh-CN/scope%20%26%20closures/ch3.md)
-* [JavaScript高级程序设计]
+* JavaScript高级程序设计
