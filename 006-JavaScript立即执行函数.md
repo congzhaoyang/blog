@@ -63,7 +63,7 @@ undefined = true
 (function IIFE() {
   var a
   if(a === undefined) {
-    console.log('undefined is safe here)
+    console.log('undefined is safe here')
   }
 })()
 ```
