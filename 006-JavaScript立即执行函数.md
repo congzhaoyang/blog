@@ -29,7 +29,6 @@ JS中，()跟在函数名之后表示调用该函数，如`print()`即表示调�
 (function() {}())
 (function() {})()
 ```
-
 ## IIEF的优势
 1.不必为函数命名，避免污染全局变量 
 avoid polluting global variables because of anonymous function and private variables and accessors
@@ -39,8 +38,9 @@ avoid polluting global variables because of anonymous function and private varia
 3.Evaluation context，preserving the inner function's execution context.
 
 ## IIFE的进阶使用
-将IIFE当做函数调用并传参进去
+### 1. 将IIFE当做函数调用并传参进去
 ```javascript
+//传入window
 var a = 2
 
 (function IIFE (global) {
@@ -49,12 +49,37 @@ var a = 2
   console.log(global.a) // window.a = 2
 })(window)
 ```
+将jQuery当做参数传入IIFE
 ```javascript
+// 传入jQuery
 (function($) {
   // code
 })(jQuery)
 ```
-
+### 2.解决undefined标识符默认值被覆盖导致的异常
+将一个参数命名为undefined，但是参数位置不传参，这样保证代码块中undefined的值真的是undefined，多磨神奇的想法
+```javascript
+undefined = true
+(function IIFE() {
+  var a
+  if(a === undefined) {
+    console.log('undefined is safe here)
+  }
+})()
+```
+### 3.倒置代码执行顺序
+先看个demo
+```javascript
+var a = 2
+(function IIFE(def) {
+  def(window)
+})(function def(global) {
+  var a = 3
+  console.log(a) // 3
+  console.log(global.a) // window.a = 2
+})
+```
+将运行的函数放在后面，当做参数传入IIFE中，在IIFE执行时，调用要运行的函数即def，传入参数window，当做global的值
 ## 参考文档
 * [Immediately-invoked function expression](https://en.wikipedia.org/wiki/Immediately-invoked_function_expression)
 * [Immediately-Invoked Function Expression (IIFE)](http://benalman.com/news/2010/11/immediately-invoked-function-expression/#iife)
